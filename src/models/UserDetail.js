@@ -3,7 +3,7 @@ const db = require('../config/db');
 class UserDetail {
   static getUserDetails(userId) {
     return db.execute(
-      'SELECT UserDetail.*, User.* FROM UserDetail JOIN User ON UserDetail.user_id = ?',
+      'SELECT UserDetail.*, User.* FROM UserDetail JOIN User ON UserDetail.user_id = User.user_id WHERE UserDetail.user_id = ?',
       [userId],
     );
   }
@@ -18,6 +18,7 @@ class UserDetail {
     allergen,
     disease,
     age,
+    bmi,
   ) {
     const isDetailFilled = !!(
       dob &&
@@ -27,7 +28,8 @@ class UserDetail {
       gender &&
       allergen &&
       disease &&
-      age
+      age &&
+      bmi
     );
 
     // Update the isDetailFilled flag in the User table.
@@ -37,7 +39,7 @@ class UserDetail {
     ]);
 
     // Prepare the query to update the UserDetail table.
-    const query = `UPDATE UserDetail SET dob = ?, height = ?, waistSize = ?, weight = ?, gender = ?, allergen = ?, disease = ?, age = ? WHERE user_id = ?`;
+    const query = `UPDATE UserDetail SET dob = ?, height = ?, waistSize = ?, weight = ?, gender = ?, allergen = ?, disease = ?, age = ?, bmi = ? WHERE user_id = ?`;
     const params = [
       dob,
       height,
@@ -47,6 +49,7 @@ class UserDetail {
       allergen,
       disease,
       age,
+      bmi,
       userId, // Ensure userId is last to match the placeholder in the query.
     ];
 

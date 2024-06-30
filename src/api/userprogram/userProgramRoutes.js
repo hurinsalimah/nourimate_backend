@@ -16,10 +16,6 @@ router.post('/', verifyToken, userProgramController.createUserProgram);
 router.put('/:programId', verifyToken, userProgramController.updateUserProgram);
 
 // DELETE /api/userprogram/:programId
-router.delete(
-  '/:programId',
-  verifyToken,
-  userProgramController.deleteUserProgram,
-);
+router.delete('/:userId', verifyToken, userProgramController.deleteUserProgram);
 
 module.exports = router;

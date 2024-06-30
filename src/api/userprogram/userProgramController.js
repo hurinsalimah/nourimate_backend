@@ -65,8 +65,8 @@ exports.updateUserProgram = async (req, res) => {
 
 exports.deleteUserProgram = async (req, res) => {
   try {
-    const userProgramId = req.params.programId;
-    await UserProgram.delete(userProgramId);
+    const userId = req.params.userId;
+    await UserProgram.delete(userId);
     res.send({message: 'User program deleted successfully'});
   } catch (error) {
     res.status(500).send({

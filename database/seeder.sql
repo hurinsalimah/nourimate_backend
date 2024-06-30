@@ -32,7 +32,6 @@ CREATE TABLE UserDetail (
     disease VARCHAR(255),
     user_id INT,
     bmi FLOAT,
-    idealWeight INT,
     age INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );

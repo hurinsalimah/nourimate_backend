@@ -173,7 +173,7 @@ exports.requestPasswordReset = async (req, res) => {
       console.error('Failed to send email:', error);
     }
 
-    res.send('Reset password link has been sent to your email.');
+    res.status(200).send('Reset password link has been sent to your email.');
   } catch (error) {
     res.status(500).send('Error on the server.');
   }
@@ -304,12 +304,10 @@ exports.sendPhoneVerification = async (req, res) => {
         from: process.env.TWILIO_PHONE_NUMBER,
         to: `+${phoneNumber}`,
       })
-      .then((message) => {
-        console.log(message.sid);
+      .then(() => {
         res.status(200).send('Verification SMS sent');
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).send(`
           Error sending SMS
           ${err}

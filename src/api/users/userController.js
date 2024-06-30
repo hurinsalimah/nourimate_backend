@@ -24,9 +24,20 @@ exports.updateUserDetails = async (req, res) => {
       req.body;
 
     // Calculate age from dob and store it in the database
-    const age = 1;
+    const age = ((dobDate, today) => {
+      let age = today.getFullYear() - dobDate.getFullYear();
+      const monthDiff = today.getMonth() - dobDate.getMonth();
+      const dayDiff = today.getDate() - dobDate.getDate();
 
-    console.log(age);
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+      }
+
+      return age;
+    })(new Date(dob), new Date());
+
+    // calculate BMI
+    const bmi = weight / (height * height);
 
     await UserDetail.updateUserDetails(
       userId,
@@ -38,6 +49,7 @@ exports.updateUserDetails = async (req, res) => {
       allergen,
       disease,
       age,
+      bmi,
     );
     res.send({message: 'User details updated successfully'});
   } catch (error) {

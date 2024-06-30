@@ -63,10 +63,8 @@ class UserProgram {
     );
   }
 
-  static async delete(userProgramId) {
-    return db.execute('DELETE FROM UserProgram WHERE program_id = ?', [
-      userProgramId,
-    ]);
+  static async delete(userId) {
+    return db.execute('DELETE FROM UserProgram WHERE user_id = ?', [userId]);
   }
 }
 
